@@ -1,0 +1,150 @@
+<html>
+    <head>  
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        
+   
+    <style type="text/css">
+    .heading{
+        color:black;
+        font-weight: bold;
+        font-size: 15px;
+        text-align: center;
+        font-style: italic;
+    }
+    .heading1{
+        color:blue;
+        font-weight: bold;
+        font-style: italic;
+    }
+    .box1{
+       border-style: solid;
+        border-color: blue;
+        padding: 15px;
+        margin: 30px;
+        width: 95%;
+    }
+    .pad{
+        padding: 5px;
+    }
+    .btn1{
+        margin-left:60px;
+    }
+</style>
+<script>
+
+    $(document).ready(function () {
+   
+    $("#addrow").on("click", function () {
+        var addnew = $(".box");
+        var cols = "";
+        cols += '<div class="item">';
+        cols +='<div class="col-md-12" id="del">';
+        cols += '<div class="col-md-4 pad"><input type="text"  required class="form-control" name="name[]"/></div>';
+        cols += '<div class="col-md-2 pad"><input type="text" class="form-control" name="value[]"/></div>';
+        cols += '<div class="col-md-2 pad"><input type="text" class="form-control" name="quantity[]"/></div>';
+        cols += '<div class="col-md-2 pad"><input type="text" class="form-control"  name="total[]" readonly/></div>';
+        cols += '<div class="col-md-2 pad"><input type="button" class="btndel btn1 btn btn-md btn-danger "  value="Delete"></div>';
+        cols += "</div>";
+        cols += '</div>';
+        addnew.append(cols);
+        $(".order-list").append(addnew);
+    });
+
+
+
+
+    $(".order-list").on("click", ".btndel", function (event) {
+        $(this).closest("#del").remove();       
+        counter -= 1;
+    });
+
+
+
+});
+
+window.onkeyup=function() {
+   
+var items = document.querySelectorAll(".item");
+//var itemsArray = Array.prototype.slice.call(items,0);
+var unit, rate, total, net = 0;
+items.forEach(function(el){
+    unit = el.querySelector('input[name="value[]"]').value;
+    rate = el.querySelector('input[name="quantity[]"]').value;
+    total = unit * rate;
+
+    console.log(unit, rate, total, net)
+    el.querySelector('input[name="total[]"]').value = total;
+    net+=total;
+});
+
+document.getElementById('total').value=net;
+}
+
+
+
+
+</script>
+</head>
+<body>
+<div class="container" style="width: 100%;">
+    <h3 class="heading1 text-center">PRODUCT LIST </h3>
+    <div class="row item">
+        
+        <div class="col-md-12 box box1 order-list well">
+           
+            <div class="col-md-4 heading">
+                INVENTORY NAME
+            </div>
+            <div class="col-md-2 heading">
+                VALUE/COST
+            </div>
+            <div class="col-md-2 heading">
+                QUANTITY
+            </div>
+            <div class="col-md-2 heading">
+                TOTAL
+            </div>
+            <div class="col-md-2  heading">
+                ACTIONS
+            </div><hr>
+            <hr>
+        <div class="col-md-12">
+            <div class="col-md-4 pad">
+               <input type="text" name="name[]" class="form-control "  required/>
+            </div>
+            <div class="col-md-2 pad">
+                <input type="text" name="value[]" class="form-control" />
+            </div>
+            <div class="col-md-2 pad">
+               <input type="text" name="quantity[]" class="form-control" />
+            </div>
+            <div class="col-md-2 pad">
+                <input type="text"  name="total[]" class="form-control" readonly>
+            </div>
+            <div class="col-md-2 pad">
+                 <input type="button" class="btn btn1 btn-success" id="addrow" value="Add Row" />
+            </div>
+        </div>
+        
+    </div>
+    <div class="col-md-12">
+            <div class="col-md-4">
+            
+            </div>
+            <div class="col-md-2">
+            
+            </div>
+            <div class="col-md-2 heading">
+               Grand Total
+            </div>
+            <div class="col-md-4">
+                 <input id="total" readonly>
+            </div>
+        </div>
+    </div>
+</div>
+    
+
+</body>
+</html>
